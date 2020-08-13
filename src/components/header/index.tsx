@@ -1,10 +1,14 @@
 import React from "react";
+import ErrorComponent from "../error";
 
 
 interface IPropsCustomeHeader {
-    text: string
+    text: string,
+    style?: any
 }
 
-export default function CustomHeader({ text }: IPropsCustomeHeader) {
-    return <h1> {text} </h1>
+
+export default function CustomHeader({ text, style = { color: "red" } }: IPropsCustomeHeader) {
+    if (!text) return <ErrorComponent />
+    return <h1 style={style}> {text} </h1>
 }
