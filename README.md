@@ -42,3 +42,17 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+### Project target:
+
+## 
+##  npx    create-react-app     YOUR_APP_NAME     --typescript
+## npm start
+## remove all app component content
+
+
+
+## ex1
+create image component - recieve image string url, image height/width
+and reders image with the relevant size
