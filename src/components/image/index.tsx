@@ -1,5 +1,4 @@
 import React from "react"
-import CustomHeader from "../header"
 
 export interface IImageProps {
     url: string,

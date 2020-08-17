@@ -4,9 +4,12 @@ import './App.css';
 import ImageComponent, { IImageProps } from './components/image';
 import CustomHeader from './components/header';
 
+import { data } from "./data"
+import MovieList from './components/movie-list';
+import { IMovie } from './components/movie';
 // jsx element
 const header = <h1> This is my first React element  </h1>
-
+console.log(data)
 const images: Array<any> = [
     { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGnMVTv0j0SVGZtdxSAh2aulvySNcgLHoqwg&usqp=CAU", height: 200, width: 300 },
     { src: "https://media.wired.com/photos/5c6750d23e8add2cdb91724f/125:94/w_2393,h_1800,c_limit/shark-551025353.jpg", height: 300, width: 500 },
@@ -22,8 +25,19 @@ function App() {
         <ImageList images={images} />
         <CustomHeader text={"Reports Page"} />
         <CustomHeader text={""} />
+        <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(data)} />
+
     </div>
 }
+
+function moviesAdapter(movies: Array<any>): Array<IMovie> {
+    return movies.map((movie: any) => {
+        const { Title, Year, rank, Poster, imdbID, Type } = movie;
+        return { title: Title, year: Year, poster: Poster, type: Type, id: imdbID, rate: rank }
+    })
+}
+
+
 
 interface IProps {
     images: Array<IImageProps>
