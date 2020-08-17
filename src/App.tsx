@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import ImageComponent, { IImageProps } from './components/image';
@@ -7,6 +7,9 @@ import CustomHeader from './components/header';
 import { data } from "./data"
 import MovieList from './components/movie-list';
 import { IMovie } from './components/movie';
+import Button from 'react-bootstrap/Button';
+import axios from "axios";
+
 // jsx element
 
 
@@ -19,10 +22,30 @@ const images: Array<any> = [
 
 // create function element
 function App() {
+    const [movies, setMovies] = useState(data)
+    // const [getter, setter] = useState(Initial State)
 
+    useEffect(() => {
+        async function getCountries() {
+            const result = await axios.get("countries url");
+            return result;
+        }
+        getCountries()
+    }, [])
+
+    function clearMovies() {
+        setMovies([])
+    }
+    function addMovie() {
+        setMovies([...movies, data[0]]) //example to show state - data[0] = from FORM
+    }
+    console.log("App rendered")
     return <div>
         <CustomHeader style={{ color: "green" }} text={"Movies"} />
-        <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(data)} />
+        <Button onClick={clearMovies} > clear Movies</Button>
+
+        <Button onClick={addMovie} > Add movie</Button>
+        <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(movies)} />
 
     </div>
 }

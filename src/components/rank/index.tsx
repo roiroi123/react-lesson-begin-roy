@@ -7,6 +7,7 @@ interface IProps {
 }
 
 export default function Rank(props: IProps) {
+
     const numberOfStars = new Array(props.stars).fill(true, 0)
     return <div>
         {numberOfStars.map(() => <Star />)}
