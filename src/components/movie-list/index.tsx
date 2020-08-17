@@ -12,7 +12,7 @@ interface IProps {
 export default function MovieList(props: IProps) {
     const { movies, noDataMessage = "No Data" } = props
     if (!movies.length) return <h1> {noDataMessage}</h1>
-    return <div className={css.bgMovies}>
+    return <div className={css.bgMovies + " row"}>
         {movies.map((movie) => { return <Movie {...movie} /> })}
     </div>
 }  
