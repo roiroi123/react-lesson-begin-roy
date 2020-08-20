@@ -10,6 +10,7 @@ import { IMovie } from './components/movie';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import { getAllByTestId } from '@testing-library/react';
+import Filter from './components/filter';
 
 // jsx element
 
@@ -57,13 +58,24 @@ function App() {
 
         }
     }
-    return <div>
-        <CustomHeader style={{ color: "green" }} text={"Movies"} />
-        <Button onClick={clearMovies} > clear Movies</Button>
-        <Button onClick={addMovie} > Add movie</Button>
-        <Button onClick={revert} > revert</Button>
-        <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(movies)} />
 
+    function filterOperation(value: string) {
+        if (!value) return setMovies(data);
+        const filteredMovies = data.filter(movie => movie.Title.toLowerCase().includes(value))
+        setMovies(filteredMovies)
+    }
+    return <div className="container">
+
+        <CustomHeader style={{ color: "green" }} text={"Movies"} />
+        <div className="row">
+            <Filter filterOperation={filterOperation} />
+        </div>
+        <div className="row">
+            <Button onClick={clearMovies} > clear Movies</Button>
+            <Button onClick={addMovie} > Add movie</Button>
+            <Button onClick={revert} > revert</Button>
+        </div>
+        <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(movies)} />
     </div>
 
     function moviesAdapter(movies: Array<any>): Array<IMovie> {
@@ -74,6 +86,9 @@ function App() {
     }
 
 }
+
+
+
 
 
 
