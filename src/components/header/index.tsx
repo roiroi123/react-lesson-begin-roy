@@ -10,5 +10,5 @@ interface IPropsCustomeHeader {
 
 export default function CustomHeader({ text, style = { color: "red" } }: IPropsCustomeHeader) {
     if (!text) return <ErrorComponent />
-    return <h1 style={style}> {text} </h1>
+    return <h1 className ={"jumbotron"} style={style}> {text} </h1>
 }

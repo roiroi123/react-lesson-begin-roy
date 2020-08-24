@@ -11,6 +11,9 @@ import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import { getAllByTestId } from '@testing-library/react';
 import Filter from './components/filter';
+import Configuration from './components/Configuration';
+import AddMovie from './components/addMovie';
+import Test from './components/Test';
 
 // jsx element
 
@@ -23,6 +26,7 @@ const images: Array<any> = [
 
 // create function element
 function App() {
+
     const initialMovies: Array<any> = data;
     const initialDeletedMovies: Array<any> = []
     const [movies, setMovies] = useState(initialMovies)
@@ -41,8 +45,8 @@ function App() {
         setMovies([...movies, getLastRevertMovie])
         setDeletedMovies([...deletedMoviesCopy])
     }
-    function addMovie() {
-        setMovies([...movies, data[0]]) //example to show state - data[0] = from FORM
+    function addMovie(newMovieObject:object) {
+        setMovies([newMovieObject, ...movies])
     }
 
     function deleteMovie(moovieId: string): void {
@@ -64,18 +68,28 @@ function App() {
         const filteredMovies = data.filter(movie => movie.Title.toLowerCase().includes(value))
         setMovies(filteredMovies)
     }
-    return <div className="container">
+    
+    const [confgDisplay, changeDisplay] = useState("none")
 
-        <CustomHeader style={{ color: "green" }} text={"Movies"} />
+    return <div  className="container">
+        <div onClick = {()=>{changeDisplay("inline")}}>
+       
+        <CustomHeader style={{ color: "blue" }} text={"Movies (click me)"}  />
+        </div>
+        <Configuration style={{ display: confgDisplay }}/>
+        
         <div className="row">
             <Filter filterOperation={filterOperation} />
         </div>
         <div className="row">
             <Button onClick={clearMovies} > clear Movies</Button>
-            <Button onClick={addMovie} > Add movie</Button>
             <Button onClick={revert} > revert</Button>
         </div>
+        <div  className = "container">
+        <AddMovie newMovie={addMovie}/>
+        </div>
         <MovieList noDataMessage="No Data for you firend" movies={moviesAdapter(movies)} />
+        <Test/>
     </div>
 
     function moviesAdapter(movies: Array<any>): Array<IMovie> {
