@@ -14,6 +14,7 @@ import Filter from './components/filter';
 import Configuration from './components/Configuration';
 import AddMovie from './components/addMovie';
 import Test from './components/Test';
+import ServerFilter from './components/serverFilter'
 
 // jsx element
 
@@ -69,6 +70,15 @@ function App() {
         setMovies(filteredMovies)
     }
     
+    async function setMoviesFromServer(value:string){
+        const moviesUrl = `http://www.omdbapi.com/?s=${value}&apikey=4f7462e2&page=10`
+        const { data } = await axios.get(moviesUrl);
+        console.log(data.Search);
+        
+        setMovies(data.Search)
+
+    }
+    
     const [confgDisplay, changeDisplay] = useState("none")
 
     return <div  className="container">
@@ -80,6 +90,8 @@ function App() {
         
         <div className="row">
             <Filter filterOperation={filterOperation} />
+            <ServerFilter filterServerOperation={setMoviesFromServer}/>
+            
         </div>
         <div className="row">
             <Button onClick={clearMovies} > clear Movies</Button>
@@ -127,15 +139,6 @@ function Details() {
 
 
 
-// return <React.Fragment>
-// <h1> aaa</h1>
-// <h1> aaa</h1>
-// </React.Fragment>
 
-
-//also works
-// function App2() {
-//     return header
-// }
 
 export default App;
